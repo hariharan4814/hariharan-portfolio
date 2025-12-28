@@ -58,7 +58,7 @@ const Header = () => {
             </nav>
 
             {/* Right side buttons */}
-            <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               {/* Theme Toggle */}
               <Button
                 variant="ghost"
@@ -116,21 +116,7 @@ const Header = () => {
             </NavLink>
           ))}
 
-          <button
-            onClick={toggleTheme}
-            className="flex flex-col items-center justify-center w-full h-full space-y-1 text-muted-foreground hover:text-foreground active:scale-95 transition-transform"
-          >
-            <div className="relative">
-              {theme === 'light' ? (
-                <Moon className="h-5 w-5 stroke-2" />
-              ) : (
-                <Sun className="h-5 w-5 stroke-2" />
-              )}
-            </div>
-            <span className="text-[10px] font-medium">
-              Theme
-            </span>
-          </button>
+
         </div>
       </nav>
     </>

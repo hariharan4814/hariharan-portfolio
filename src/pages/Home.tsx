@@ -90,7 +90,7 @@ const Home = () => {
               transition={{ delay: 0.5 }}
               className="text-xl md:text-2xl text-muted-foreground font-medium"
             >
-              Designer & Developer
+              Developer & Designer
             </motion.p>
 
             <motion.p
