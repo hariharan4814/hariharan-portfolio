@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+dist/
+.env
+npm-debug.log*
+yarn-error.log*
+
+# VSCode
+.vscode/
+
+# macOS / system files
+.DS_Store
+Thumbs.db
+
+# OneDrive / caches
+AppData/
