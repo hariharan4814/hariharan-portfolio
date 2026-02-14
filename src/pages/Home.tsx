@@ -85,9 +85,9 @@ const Home = () => {
                 transition={{ delay: 0.3 }}
                 className="flex items-center justify-center gap-2 text-primary"
               >
-                <Sparkles className="h-5 w-5 animate-pulse" />
+
                 <span className="text-sm font-bold uppercase tracking-widest">Welcome to my portfolio</span>
-                <Sparkles className="h-5 w-5 animate-pulse" />
+
               </motion.div>
 
               <motion.h1

@@ -72,7 +72,7 @@ const About = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white">
                   <p className="font-bold text-xl">Hariharan B</p>
-                  <p className="text-white/80 text-sm">Design & Code</p>
+                  <p className="text-white/80 text-sm">Designer & Developer</p>
                 </div>
               </div>
             </div>

@@ -161,7 +161,7 @@ const Contact = () => {
                       id="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="John Doe"
+                      placeholder="Enter Your Name Here"
                       className="bg-background/50 border-white/10 focus:border-primary/50 h-12 rounded-xl transition-all"
                       required
                     />
@@ -173,7 +173,7 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="john@example.com"
+                      placeholder="Enter Your Email Here"
                       className="bg-background/50 border-white/10 focus:border-primary/50 h-12 rounded-xl transition-all"
                       required
                     />
