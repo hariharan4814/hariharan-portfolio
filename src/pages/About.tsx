@@ -63,7 +63,7 @@ const About = () => {
           >
             <div className="relative w-72 h-72 md:w-96 md:h-96">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary to-purple-600 rounded-[2rem] rotate-6 opacity-20 blur-2xl" />
-              <div className="relative h-full w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl bg-white/5 backdrop-blur-sm group">
+              <div className="relative h-full w-full rounded-[2rem] overflow-hidden border border-border shadow-2xl bg-card/50 backdrop-blur-sm group">
                 <img
                   src="/myimg.png"
                   alt="Hariharan B"
@@ -121,12 +121,12 @@ const About = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             {education.map((edu, i) => (
-              <Card key={i} className="p-6 border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 transition-all group">
+              <Card key={i} className="p-6 border-border bg-card/50 backdrop-blur-md hover:bg-muted transition-all group">
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform">
                     <Award className="h-6 w-6" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-white/5 text-xs font-medium border border-white/10">
+                  <span className="px-3 py-1 rounded-full bg-secondary text-xs font-medium border border-border">
                     {edu.year}
                   </span>
                 </div>
@@ -165,7 +165,7 @@ const About = () => {
                 {skills.technical.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-sm font-medium hover:bg-white/10 transition-colors"
+                    className="px-3 py-1.5 rounded-md bg-secondary/50 border border-border text-sm font-medium hover:bg-secondary transition-colors"
                   >
                     {skill}
                   </span>
@@ -185,7 +185,7 @@ const About = () => {
                 {skills.design.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-sm font-medium hover:bg-white/10 transition-colors"
+                    className="px-3 py-1.5 rounded-md bg-secondary/50 border border-border text-sm font-medium hover:bg-secondary transition-colors"
                   >
                     {skill}
                   </span>
@@ -205,7 +205,7 @@ const About = () => {
                 {skills.soft.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-sm font-medium hover:bg-white/10 transition-colors"
+                    className="px-3 py-1.5 rounded-md bg-secondary/50 border border-border text-sm font-medium hover:bg-secondary transition-colors"
                   >
                     {skill}
                   </span>

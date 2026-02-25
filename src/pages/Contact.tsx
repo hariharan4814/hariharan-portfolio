@@ -117,7 +117,7 @@ const Contact = () => {
                     whileHover={{ scale: 1.02, x: 5 }}
                     className="group"
                   >
-                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all backdrop-blur-md">
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-card/60 border border-border hover:border-primary/50 transition-all backdrop-blur-md">
                       <div className={`p-3 rounded-xl bg-gradient-to-br ${contact.color} shadow-lg group-hover:shadow-primary/25 transition-all`}>
                         <contact.icon className="h-5 w-5 text-white" />
                       </div>
@@ -142,7 +142,7 @@ const Contact = () => {
             transition={{ delay: 0.4 }}
             className="lg:col-span-8 order-1 lg:order-2"
           >
-            <Card className="p-6 md:p-10 lg:p-12 glass border border-white/10 shadow-2xl rounded-3xl md:rounded-[2.5rem] relative overflow-hidden">
+            <Card className="p-6 md:p-10 lg:p-12 bg-card/80 backdrop-blur-lg border border-border shadow-xl rounded-3xl md:rounded-[2.5rem] relative overflow-hidden">
               {/* Form Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
 
@@ -162,7 +162,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Enter Your Name Here"
-                      className="bg-background/50 border-white/10 focus:border-primary/50 h-12 rounded-xl transition-all"
+                      className="bg-background/50 border-border focus:border-primary/50 h-12 rounded-xl transition-all"
                       required
                     />
                   </div>
@@ -174,7 +174,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="Enter Your Email Here"
-                      className="bg-background/50 border-white/10 focus:border-primary/50 h-12 rounded-xl transition-all"
+                      className="bg-background/50 border-border focus:border-primary/50 h-12 rounded-xl transition-all"
                       required
                     />
                   </div>
@@ -187,7 +187,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Hello, I'd like to talk about..."
-                    className="bg-background/50 border-white/10 focus:border-primary/50 min-h-[200px] rounded-xl resize-none transition-all p-4"
+                    className="bg-background/50 border-border focus:border-primary/50 min-h-[200px] rounded-xl resize-none transition-all p-4"
                     required
                   />
                 </div>

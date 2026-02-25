@@ -35,12 +35,12 @@ const Header = () => {
           }`}
       >
         <div className="container mx-auto px-4">
-          <nav className={`mx-auto rounded-full border border-white/20 shadow-lg backdrop-blur-md transition-all duration-300 ${scrolled ? 'bg-background/80 supports-[backdrop-filter]:bg-background/60 shadow-xl' : 'bg-transparent border-transparent shadow-none'
+          <nav className={`mx-auto rounded-full border border-border shadow-lg backdrop-blur-md transition-all duration-300 ${scrolled ? 'bg-background/80 supports-[backdrop-filter]:bg-background/60 shadow-xl' : 'bg-transparent border-transparent shadow-none'
             } max-w-5xl px-6 py-3 flex items-center justify-between`}>
 
             {/* Logo */}
             <NavLink to="/" className="text-xl font-bold tracking-tighter flex items-center gap-2 group">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-white group-hover:rotate-12 transition-transform">
+              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground group-hover:rotate-12 transition-transform shadow-md">
                 HB
               </div>
               <span className={`hidden sm:block ${scrolled ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>Portfolio</span>
@@ -55,7 +55,7 @@ const Header = () => {
                   className={({ isActive }) =>
                     `relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${isActive
                       ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                     }`
                   }
                 >
@@ -84,7 +84,7 @@ const Header = () => {
       </motion.header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[400px] rounded-2xl glass border-white/20 shadow-2xl p-2 flex justify-between items-center bg-background/80 backdrop-blur-xl">
+      <nav className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[400px] rounded-2xl glass border-border shadow-2xl p-2 flex justify-between items-center bg-background/80 backdrop-blur-xl">
         {navItems.map((item) => (
           <NavLink
             key={item.path}

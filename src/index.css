@@ -8,76 +8,76 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 210 100% 97%;
-    --foreground: 217 91% 10%;
+    --background: 0 0% 99%;
+    --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 217 91% 10%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 217 91% 10%;
+    --popover-foreground: 240 10% 3.9%;
 
-    --primary: 217 91% 50%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 199 89% 48%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-    --accent: 199 89% 48%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 50%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 262 83% 58%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Custom blue gradients */
-    --gradient-blue: linear-gradient(135deg, hsl(217 91% 50%) 0%, hsl(199 89% 48%) 100%);
-    --gradient-dark: linear-gradient(135deg, hsl(217 91% 20%) 0%, hsl(217 91% 10%) 100%);
-    --glow-blue: 0 0 40px hsl(217 91% 50% / 0.4);
-    --glow-cyan: 0 0 30px hsl(199 89% 48% / 0.5);
+    /* Custom elegant gradients */
+    --gradient-blue: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(280 80% 60%) 100%);
+    --gradient-dark: linear-gradient(135deg, hsl(240 10% 15%) 0%, hsl(240 10% 5%) 100%);
+    --glow-blue: 0 0 40px hsl(262 83% 58% / 0.3);
+    --glow-cyan: 0 0 30px hsl(280 80% 60% / 0.3);
   }
 
   .dark {
-    --background: 217 91% 8%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 217 91% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 217 91% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 199 89% 48%;
-    --primary-foreground: 217 91% 10%;
+    --primary: 262 83% 70%;
+    --primary-foreground: 262 83% 10%;
 
-    --secondary: 217 91% 20%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217 91% 15%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 217 91% 30%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217 91% 20%;
-    --input: 217 91% 20%;
-    --ring: 199 89% 48%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 262 83% 70%;
 
-    --gradient-blue: linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(217 91% 40%) 100%);
-    --gradient-dark: linear-gradient(135deg, hsl(217 91% 15%) 0%, hsl(217 91% 8%) 100%);
-    --glow-blue: 0 0 50px hsl(199 89% 48% / 0.5);
-    --glow-cyan: 0 0 40px hsl(184 100% 50% / 0.4);
+    --gradient-blue: linear-gradient(135deg, hsl(262 83% 65%) 0%, hsl(280 80% 65%) 100%);
+    --gradient-dark: linear-gradient(135deg, hsl(240 10% 8%) 0%, hsl(240 10% 2%) 100%);
+    --glow-blue: 0 0 50px hsl(262 83% 65% / 0.2);
+    --glow-cyan: 0 0 40px hsl(280 80% 65% / 0.2);
   }
 }
 
@@ -94,7 +94,7 @@ All colors MUST be HSL.
   /* Global Touch Feedback */
   button,
   a {
-    @apply transition-transform duration-100 active:scale-95 cursor-pointer;
+    @apply transition-all duration-300 active:scale-[0.98] cursor-pointer;
   }
 
   /* Cursor visible overrides removed */
