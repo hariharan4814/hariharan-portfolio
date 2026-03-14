@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import CustomCursor from './CustomCursor';
 import BackToTop from './BackToTop';
 
 interface LayoutProps {
@@ -11,7 +10,6 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <CustomCursor />
       <Header />
       <main className="pb-20 md:pb-0">{children}</main>
       <Footer />

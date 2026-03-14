@@ -6,31 +6,7 @@ import { Button } from '@/components/ui/button';
 const Home = () => {
   return (
     <div className="min-h-screen relative overflow-hidden bg-background selection:bg-primary/30">
-      {/* Elegant minimalist background */}
-      <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary/20 to-secondary/20 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}></div>
-      </div>
 
-      {/* Floating particles styled with the new theme colors */}
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-primary/40 rounded-full shadow-[0_0_10px_rgba(var(--primary),0.5)]"
-          initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-          }}
-          animate={{
-            y: [null, Math.random() * window.innerHeight],
-            x: [null, Math.random() * window.innerWidth],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
-      ))}
 
       {/* Content */}
       <div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center pt-20">
@@ -44,15 +20,15 @@ const Home = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="relative inline-block group"
             >
-              <div className="absolute -inset-0.5 rounded-full bg-gradient-to-tr from-primary to-accent opacity-30 group-hover:opacity-60 transition duration-500 blur-md"></div>
-              <div className="relative w-44 h-44 md:w-56 md:h-56 mx-auto rounded-full p-1 bg-background">
-                <div className="w-full h-full rounded-full overflow-hidden bg-secondary/20">
+              <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-tr from-primary to-accent opacity-30 group-hover:opacity-60 transition duration-500 blur-md"></div>
+              <div className="relative w-48 h-64 md:w-64 md:h-80 mx-auto rounded-2xl p-1 bg-background">
+                <div className="w-full h-full rounded-2xl overflow-hidden bg-secondary/20">
                   <motion.img
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.4 }}
                     src="/myimg.png"
                     alt="My Profile"
-                    className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover object-top transition-all duration-500"
                   />
                 </div>
               </div>
@@ -82,7 +58,7 @@ const Home = () => {
               >
                 <span className="text-foreground">Hi, I'm</span>
                 <motion.span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-accent"
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-accent"
                   animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                   style={{ backgroundSize: "200% auto" }}

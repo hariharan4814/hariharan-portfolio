@@ -20,7 +20,7 @@ const Achievements = () => {
       year: '2024',
       description: 'Recognized for exceptional creativity in design and content creation',
       icon: Star,
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-blue-400 to-orange-400',
     },
     {
       title: 'Head of SIRIPPOM SINDHIPPOM Club',
@@ -44,7 +44,7 @@ const Achievements = () => {
       year: '2024',
       description: '7 Days exchange program experiencing diverse educational culture',
       icon: GraduationCap,
-      color: 'from-indigo-500 to-purple-500',
+      color: 'from-cyan-500 to-blue-500',
     },
     {
       title: 'Google UX Design',
@@ -118,7 +118,7 @@ const Achievements = () => {
 
                     {/* Content */}
                     <div className="flex-1 space-y-3">
-                      <h3 className="text-2xl font-bold group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-purple-600 transition-all">
+                      <h3 className="text-2xl font-bold group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-400 transition-all">
                         {achievement.title}
                       </h3>
 

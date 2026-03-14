@@ -49,7 +49,7 @@ const Contact = () => {
       label: 'Instagram',
       value: '@_sanjeev.b_',
       href: 'https://instagram.com/_sanjeev.b_',
-      color: 'from-pink-500 to-purple-500',
+      color: 'from-orange-400 to-rose-400',
     },
   ];
 
@@ -77,7 +77,7 @@ const Contact = () => {
     <div className="min-h-screen pt-24 pb-16 relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-20 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl -z-10 animate-pulse" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl -z-10" />
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -87,7 +87,7 @@ const Contact = () => {
         >
           <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-4 block">Contact Me</span>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Let's start a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Conversation</span>
+            Let's start a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Conversation</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Interested in working together? I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.

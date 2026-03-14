@@ -20,7 +20,7 @@ const Projects = () => {
       description: 'Crafted an interactive portfolio prototype in Figma, combining user experience and creative visuals with a focus on modern design principles.',
       tags: ['UI/UX', 'Figma', 'Design Thinking', 'Prototyping'],
       icon: Figma,
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-sky-400 to-blue-500',
     },
     {
       title: 'Graphic Branding Works',
