@@ -128,7 +128,7 @@ const Login = () => {
                   </>
                 ) : (
                   <>
-                    Access Drive <LogIn size={18} />
+                    Login <LogIn size={18} />
                   </>
                 )}
               </span>
