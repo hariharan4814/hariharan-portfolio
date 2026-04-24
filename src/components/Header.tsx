@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Moon, Sun, Home, User, Code, Award, Mail, Menu, X } from 'lucide-react';
+import { Moon, Sun, Home, User, Code, Award, Mail, Menu, X, LogIn } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/button';
@@ -24,6 +24,7 @@ const Header = () => {
     { name: 'Projects', path: '/projects', icon: Code },
     { name: 'Achievements', path: '/achievements', icon: Award },
     { name: 'Contact', path: '/contact', icon: Mail },
+    { name: 'Login', path: '/login', icon: LogIn },
   ];
 
   return (
