@@ -1,208 +1,227 @@
-import { motion } from 'framer-motion';
-import { Mail, Phone, Linkedin, MessageCircle, Instagram, Send, ArrowRight } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, Linkedin, MessageCircle, Instagram, Send, ArrowRight, MapPin } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
+/* ---- Contact info card ---- */
+function ContactCard({ contact, index }: { contact: any; index: number }) {
+  return (
+    <motion.a
+      href={contact.href}
+      target={contact.href.startsWith("http") ? "_blank" : undefined}
+      rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
+      initial={{ opacity: 0, x: -30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.2 + index * 0.08, duration: 0.5 }}
+      whileHover={{ x: 4 }}
+      className="group block"
+      aria-label={`Contact via ${contact.label}`}
+    >
+      <div className="relative flex items-center gap-4 p-4 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-hard-sm inner-glow overflow-hidden">
+        {/* Hover color overlay */}
+        <div className={`absolute inset-0 bg-gradient-to-r ${contact.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-300`} />
+        <div className={`p-3 rounded-xl bg-gradient-to-br ${contact.color} shadow-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+          <contact.icon className="h-5 w-5 text-white" />
+        </div>
+        <div className="flex-1 min-w-0 relative z-10">
+          <p className="text-xs text-muted-foreground font-semibold mb-0.5">{contact.label}</p>
+          <p className="text-sm text-foreground font-bold truncate group-hover:text-primary transition-colors">{contact.value}</p>
+        </div>
+        <ArrowRight className="h-4 w-4 text-muted-foreground/40 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 flex-shrink-0 relative z-10" />
+      </div>
+    </motion.a>
+  );
+}
+
+/* ============ MAIN CONTACT PAGE ============ */
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [isSending, setIsSending] = useState(false);
 
   const contactInfo = [
-    {
-      icon: Phone,
-      label: 'Phone',
-      value: '+91 9940099083',
-      href: 'tel:+919940099083',
-      color: 'from-green-500 to-emerald-500',
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      value: 'hariharan4814@gmail.com',
-      href: 'mailto:hariharan4814@gmail.com',
-      color: 'from-red-500 to-orange-500',
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      value: 'linkedin.com/in/hariharan4814',
-      href: 'https://linkedin.com/in/hariharan4814',
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      icon: MessageCircle,
-      label: 'WhatsApp',
-      value: 'Chat on WhatsApp',
-      href: 'https://wa.me/919940099083',
-      color: 'from-green-400 to-green-600',
-    },
-    {
-      icon: Instagram,
-      label: 'Instagram',
-      value: '@_sanjeev.b_',
-      href: 'https://instagram.com/_sanjeev.b_',
-      color: 'from-orange-400 to-rose-400',
-    },
+    { icon: Phone, label: "Phone", value: "+91 9940099083", href: "tel:+919940099083", color: "from-emerald-400 to-teal-500" },
+    { icon: Mail, label: "Email", value: "hariharan4814@gmail.com", href: "mailto:hariharan4814@gmail.com", color: "from-violet-500 to-indigo-600" },
+    { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/hariharan4814", href: "https://linkedin.com/in/hariharan4814", color: "from-sky-500 to-blue-600" },
+    { icon: MessageCircle, label: "WhatsApp", value: "Chat on WhatsApp", href: "https://wa.me/919940099083", color: "from-green-400 to-emerald-600" },
+    { icon: Instagram, label: "Instagram", value: "@sanjeeev.b", href: "https://www.instagram.com/sanjeeev.b/", color: "from-pink-400 to-rose-500" },
+    { icon: MapPin, label: "Location", value: "Coimbatore, Tamil Nadu", href: "#", color: "from-amber-400 to-orange-500" },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Create WhatsApp message
-    const message = `Hi Hariharan,%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0A%0AMessage: ${formData.message}`;
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=919940099083&text=${message}`;
-
-    // Open WhatsApp
-    window.open(whatsappUrl, '_blank');
-
-    // Show success toast
-    toast({
-      title: "Redirecting to WhatsApp",
-      description: "Your message will be sent via WhatsApp",
-    });
-
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    setIsSending(true);
+    const msg = `Hi Hariharan,%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0ASubject: ${formData.subject}%0A%0AMessage: ${formData.message}`;
+    const url = `https://api.whatsapp.com/send?phone=919940099083&text=${msg}`;
+    window.open(url, "_blank");
+    toast({ title: "Redirecting to WhatsApp", description: "Your message will be sent via WhatsApp" });
+    setFormData({ name: "", email: "", subject: "", message: "" });
+    setTimeout(() => setIsSending(false), 2000);
   };
 
-  return (
-    <div className="min-h-screen pt-24 pb-16 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-20 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl -z-10 animate-pulse" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl -z-10" />
+  const inputClass = "bg-background/60 border-border focus:border-primary/60 h-12 rounded-2xl transition-all text-foreground placeholder:text-muted-foreground/50 focus:ring-2 focus:ring-primary/20";
 
-      <div className="container mx-auto px-4 relative z-10">
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Background spheres */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
+        <div className="gradient-sphere float-1" style={{ width: 450, height: 450, background: "radial-gradient(circle, hsl(250 85% 68%/0.12) 0%, transparent 70%)", top: "-5%", right: "-5%" }} />
+        <div className="gradient-sphere float-3" style={{ width: 380, height: 380, background: "radial-gradient(circle, hsl(32 95% 55%/0.1) 0%, transparent 70%)", bottom: "0%", left: "-8%" }} />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 pt-28 pb-20 max-w-6xl">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-4 block">Contact Me</span>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Let's start a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Conversation</span>
+          <span className="section-label mb-4 block">Get in Touch</span>
+          <h1 className="headline text-5xl md:text-7xl mb-6">
+            Let&apos;s Build{" "}
+            <span className="text-gradient-hero animate-gradient" style={{ backgroundSize: "200% auto" }}>
+              Something Useful
+            </span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Interested in working together? I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Have a project, internship, or developer opportunity in mind? Get in touch.
           </p>
+
+          {/* Status badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+            className="inline-flex items-center gap-2 mt-6 px-4 py-2 rounded-full glass border border-border shadow-sm"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            </span>
+            <span className="text-sm font-bold text-foreground">Available for opportunities</span>
+          </motion.div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-24 items-start">
-          {/* Contact Info Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+          {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-4 space-y-6 md:space-y-8 order-2 lg:order-1"
+            className="lg:col-span-4 order-2 lg:order-1"
           >
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold">Contact Details</h3>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                {contactInfo.map((contact, index) => (
-                  <motion.a
-                    key={index}
-                    href={contact.href}
-                    target={contact.href.startsWith('http') ? '_blank' : undefined}
-                    rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    className="group"
-                  >
-                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-card/60 border border-border hover:border-primary/50 transition-all backdrop-blur-md">
-                      <div className={`p-3 rounded-xl bg-gradient-to-br ${contact.color} shadow-lg group-hover:shadow-primary/25 transition-all`}>
-                        <contact.icon className="h-5 w-5 text-white" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm text-muted-foreground font-medium mb-0.5">{contact.label}</p>
-                        <p className="text-foreground font-semibold truncate group-hover:text-primary transition-colors">{contact.value}</p>
-                      </div>
-                      <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    </div>
-                  </motion.a>
-                ))}
+            <div className="space-y-4">
+              <div className="mb-6">
+                <span className="section-label mb-2 block">Contact Details</span>
+                <h3 className="text-2xl font-black text-foreground">Reach Out Directly</h3>
               </div>
+              {contactInfo.map((c, i) => (
+                <ContactCard key={i} contact={c} index={i} />
+              ))}
             </div>
 
-            {/* Removed 'Looking for a resume?' section as requested */}
+
           </motion.div>
 
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.35 }}
             className="lg:col-span-8 order-1 lg:order-2"
           >
-            <Card className="p-6 md:p-10 lg:p-12 bg-card/80 backdrop-blur-lg border border-border shadow-xl rounded-3xl md:rounded-[2.5rem] relative overflow-hidden">
-              {/* Form Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
+            <div className="relative">
+              {/* Hard offset shadow */}
+              <div className="absolute inset-0 rounded-3xl bg-primary/20 translate-x-3 translate-y-3" />
+              <div className="relative rounded-3xl bg-card border-2 border-border p-7 md:p-10 overflow-hidden shadow-xl inner-glow">
+                {/* Glow corner */}
+                <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
 
-              <div className="mb-10">
-                <h2 className="text-3xl font-bold mb-3">Send a Message</h2>
-                <p className="text-muted-foreground">
-                  Got a question or proposal? Send me a message and I'll get back to you as soon as possible via WhatsApp.
-                </p>
+                <div className="mb-8 relative z-10">
+                  <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Send a Message</h2>
+                  <p className="text-muted-foreground text-sm">Your message will be sent via WhatsApp for quick responses.</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div className="space-y-1.5">
+                      <label htmlFor="name" className="text-sm font-bold text-foreground/80 ml-1">Your Name *</label>
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="John Doe"
+                        className={inputClass}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label htmlFor="email" className="text-sm font-bold text-foreground/80 ml-1">Your Email *</label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="john@example.com"
+                        className={inputClass}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label htmlFor="subject" className="text-sm font-bold text-foreground/80 ml-1">Subject</label>
+                    <Input
+                      id="subject"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      placeholder="Project inquiry, collaboration, etc."
+                      className={inputClass}
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label htmlFor="message" className="text-sm font-bold text-foreground/80 ml-1">Your Message *</label>
+                    <Textarea
+                      id="message"
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Hello, I would like to discuss..."
+                      className={`${inputClass} min-h-[160px] h-auto resize-none pt-3 pb-3`}
+                      required
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={isSending}
+                    className="w-full h-14 text-base font-black rounded-2xl gradient-primary text-white border-0 shadow-hard-sm hover:shadow-hard hover:-translate-y-0.5 transition-all group disabled:opacity-70"
+                  >
+                    {isSending ? (
+                      <span className="flex items-center gap-2">
+                        <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending…
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        Send Message via WhatsApp
+                        <Send className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      </span>
+                    )}
+                  </Button>
+                </form>
               </div>
-
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium ml-1">Your Name</label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Enter Your Name Here"
-                      className="bg-background/50 border-border focus:border-primary/50 h-12 rounded-xl transition-all"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium ml-1">Your Email</label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="Enter Your Email Here"
-                      className="bg-background/50 border-border focus:border-primary/50 h-12 rounded-xl transition-all"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium ml-1">Your Message</label>
-                  <Textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Hello, I'd like to talk about..."
-                    className="bg-background/50 border-border focus:border-primary/50 min-h-[200px] rounded-xl resize-none transition-all p-4"
-                    required
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full h-14 text-lg font-semibold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all group"
-                >
-                  <span>Send Message via WhatsApp</span>
-                  <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </Button>
-              </form>
-            </Card>
+            </div>
           </motion.div>
+
         </div>
       </div>
     </div>

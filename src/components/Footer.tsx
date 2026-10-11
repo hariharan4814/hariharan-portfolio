@@ -1,85 +1,79 @@
-import { Linkedin, Github, Instagram, MessageCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Linkedin, Github, Instagram, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const socialLinks = [
-    {
-      name: 'LinkedIn',
-      icon: Linkedin,
-      url: 'https://linkedin.com/in/hariharan4814',
-      color: 'hover:text-[#0077b5]'
-    },
-    {
-      name: 'GitHub',
-      icon: Github,
-      url: 'https://github.com/hariharan4814',
-      color: 'hover:text-foreground'
-    },
-    {
-      name: 'Instagram',
-      icon: Instagram,
-      url: 'https://instagram.com/_sanjeev.b_',
-      color: 'hover:text-[#E4405F]'
-    },
-    {
-      name: 'WhatsApp',
-      icon: MessageCircle,
-      url: 'https://wa.me/919940099083',
-      color: 'hover:text-[#25D366]'
-    },
+    { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/hariharan4814", color: "hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5]" },
+    { name: "GitHub", icon: Github, url: "https://github.com/hariharan4814", color: "hover:bg-foreground hover:text-background hover:border-foreground" },
+    { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/sanjeeev.b/", color: "hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F]" },
+    { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/919940099083", color: "hover:bg-[#25D366] hover:text-white hover:border-[#25D366]" },
+  ];
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Projects", href: "/projects" },
+    { name: "Achievements", href: "/achievements" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
-    <footer className="relative overflow-hidden border-t border-border/50">
-      {/* Animated wave background */}
-      <div className="absolute inset-0 opacity-10">
-        <svg
-          className="absolute bottom-0 w-full"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-        >
-          <motion.path
-            fill="currentColor"
-            className="text-primary"
-            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            animate={{
-              d: [
-                "M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-                "M0,160L48,149.3C96,139,192,117,288,112C384,107,480,117,576,133.3C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-              ],
-            }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "reverse",
-              duration: 10,
-              ease: "easeInOut",
-            }}
-          />
-        </svg>
+    <footer className="relative border-t border-border/50 bg-background overflow-hidden pb-24 md:pb-0" role="contentinfo">
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 py-8 pb-24 md:pb-8 relative z-10">
-        <div className="flex flex-col items-center gap-6">
-          {/* Social Links */}
-          <div className="flex gap-6">
+      <div className="container mx-auto px-4 py-12 relative z-10">
+        {/* Top row */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+          {/* Brand */}
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center text-white font-black text-sm shadow-hard-sm">
+              HB
+            </div>
+            <div>
+              <p className="font-black text-foreground tracking-tight">Hariharan B</p>
+              <p className="text-xs text-muted-foreground font-medium">Developer & Designer</p>
+            </div>
+          </div>
+
+          {/* Nav links */}
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center" aria-label="Footer navigation">
+            {navLinks.map((l) => (
+              <a key={l.name} href={l.href} className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors">
+                {l.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Social links */}
+          <div className="flex gap-3" role="list" aria-label="Social media links">
             {socialLinks.map((social) => (
               <motion.a
                 key={social.name}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, y: -5 }}
+                aria-label={social.name}
+                role="listitem"
+                whileHover={{ scale: 1.1, y: -3 }}
                 whileTap={{ scale: 0.9 }}
-                className={`p-3 rounded-full glass transition-colors ${social.color}`}
+                className={`p-2.5 rounded-xl border border-border text-muted-foreground transition-all duration-200 ${social.color}`}
               >
-                <social.icon className="h-5 w-5" />
+                <social.icon className="h-4 w-4" />
               </motion.a>
             ))}
           </div>
+        </div>
 
-          {/* Copyright */}
-          <p className="text-sm text-muted-foreground text-center">
-            © 2026 Hariharan B | Designed & Developed by Hariharan B
+        {/* Divider */}
+        <div className="section-divider mb-6" />
+
+        {/* Bottom row */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-center">
+          <p className="text-xs text-muted-foreground">
+            © 2026 Hariharan B. All rights reserved.
           </p>
         </div>
       </div>

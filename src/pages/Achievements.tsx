@@ -1,194 +1,289 @@
-import { motion } from 'framer-motion';
-import { Trophy, Award, Users, GraduationCap, Star, Globe } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import FloatingButton from '@/components/FloatingButton';
-import { Mail } from 'lucide-react';
+﻿import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { Trophy, Award, Users, Star, BookOpen, Zap, GraduationCap } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---- Achievement card ---- */
+function AchievementCard({ achievement, index }: { achievement: any; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    gsap.fromTo(el,
+      { opacity: 0, y: 50, rotate: index % 2 === 0 ? -1 : 1 },
+      {
+        opacity: 1, y: 0, rotate: 0, duration: 0.65, ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
+        delay: (index % 3) * 0.1,
+      }
+    );
+  }, [index]);
+
+  return (
+    <div ref={cardRef} className="group h-full">
+      <div className="relative h-full transition-all duration-300 cursor-default">
+        <div
+          className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${achievement.color} opacity-0 group-hover:opacity-60 translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-all duration-300`}
+          style={{ filter: "blur(1px)" }}
+        />
+        <div className="relative rounded-3xl bg-card border border-border p-6 h-full flex flex-col overflow-hidden shadow-card inner-glow transition-all duration-300 group-hover:border-primary/20 group-hover:-translate-y-1">
+          <div className={`absolute inset-0 bg-gradient-to-br ${achievement.color} opacity-0 group-hover:opacity-[0.04] rounded-3xl transition-opacity duration-500`} />
+          <div className="relative z-10 mb-4 flex justify-between items-start">
+            <motion.div
+              whileHover={{ scale: 1.12 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className={`p-3.5 rounded-2xl bg-gradient-to-br ${achievement.color} shadow-md inner-glow`}
+            >
+              <achievement.icon className="h-6 w-6 text-white" />
+            </motion.div>
+            <div className="tilt-2 px-3 py-1 rounded-xl bg-secondary border border-border text-xs font-black text-foreground shadow-hard-sm">
+              {achievement.year}
+            </div>
+          </div>
+          <div className="relative z-10 flex-1 space-y-2">
+            <h3 className="text-base font-bold text-foreground leading-snug group-hover:text-primary transition-colors">
+              {achievement.title}
+            </h3>
+            <span className="tag text-[0.6rem]">{achievement.organization}</span>
+            {achievement.note && (
+              <p className="text-muted-foreground text-xs leading-relaxed pt-1">{achievement.note}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---- Cert card ---- */
+function CertCard({ cert, index }: { cert: any; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      className="group flex items-start gap-4 p-5 rounded-2xl bg-card border border-border shadow-sm inner-glow hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+    >
+      <div className={`p-2.5 rounded-xl bg-gradient-to-br ${cert.color} shadow-sm flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+        <cert.icon className="h-5 w-5 text-white" />
+      </div>
+      <div>
+        <p className="text-sm font-bold text-foreground leading-snug">{cert.title}</p>
+        <p className="text-xs text-muted-foreground mt-0.5">{cert.issuer}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ---- Stat card ---- */
+function StatCard({ value, label, icon: Icon, color }: { value: string; label: string; icon: any; color: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.88 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -4 }}
+      className="relative group text-center"
+    >
+      <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${color} opacity-0 group-hover:opacity-50 translate-x-1.5 translate-y-1.5 group-hover:translate-x-2.5 group-hover:translate-y-2.5 transition-all duration-300`} style={{ filter: "blur(1px)" }} />
+      <div className="relative glass rounded-3xl p-6 border border-border inner-glow">
+        <div className={`inline-flex p-3 rounded-2xl bg-gradient-to-br ${color} mb-3 shadow-sm`}>
+          <Icon className="h-5 w-5 text-white" />
+        </div>
+        <div className="text-4xl font-black text-gradient mb-1">{value}</div>
+        <div className="text-xs text-muted-foreground font-semibold">{label}</div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ============ ACHIEVEMENTS PAGE ============ */
 const Achievements = () => {
   const achievements = [
     {
-      title: 'Best Outgoing Student',
-      organization: 'SKACAS',
-      year: '2025',
-      description: 'Awarded for outstanding academic performance and overall contribution to college',
+      title: "Best Outgoing Student",
+      organization: "SKACAS — Batch 2022–2025",
+      year: "2025",
       icon: Trophy,
-      color: 'from-yellow-500 to-orange-500',
+      color: "from-yellow-400 to-orange-500",
     },
     {
-      title: 'Best Creator Award',
-      organization: 'SKACAS',
-      year: '2024',
-      description: 'Recognized for exceptional creativity in design and content creation',
+      title: "Best Creator Award",
+      organization: "SKACAS",
+      year: "2024",
       icon: Star,
-      color: 'from-blue-400 to-orange-400',
+      color: "from-violet-500 to-indigo-600",
     },
     {
-      title: 'Head of SIRIPPOM SINDHIPPOM Club',
-      organization: 'SKACAS',
-      year: '2023–25',
-      description: 'Led the club activities and organized various cultural and creative events',
-      icon: Users,
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      title: 'Networking Bootcamp',
-      organization: 'Internet Society (ISOC)',
-      year: '2024',
-      description: '5 Days Live Bootcamp on Designing and Deploying Computer Networks',
-      icon: Globe,
-      color: 'from-green-500 to-emerald-500',
-    },
-    {
-      title: 'Student Exchange Program',
-      organization: 'KES Shroff College, Mumbai',
-      year: '2024',
-      description: '7 Days exchange program experiencing diverse educational culture',
-      icon: GraduationCap,
-      color: 'from-cyan-500 to-blue-500',
-    },
-    {
-      title: 'Google UX Design',
-      organization: 'Coursera',
-      year: '2024',
-      description: 'Professional Certificate in User Experience Design',
+      title: "Best Tamil Orator",
+      organization: "SKACAS",
+      year: "2024",
       icon: Award,
-      color: 'from-red-500 to-rose-500',
+      color: "from-rose-400 to-pink-600",
+    },
+    {
+      title: "Excellence Award — IoT-Based Expo",
+      organization: "PSG College of Arts & Science",
+      year: "2025",
+      icon: Zap,
+      color: "from-emerald-400 to-teal-500",
+      note: "Team award for an IoT-based project presented at the college expo.",
     },
   ];
 
+  const leadership = [
+    {
+      title: "Association Chairperson",
+      organization: "Dept. of Computer Science, PSG College of Arts & Science",
+      period: "Current",
+      icon: Users,
+      color: "from-violet-500 to-indigo-600",
+    },
+    {
+      title: "Head — Sirippom Sindhippom Club",
+      organization: "Sri Krishna Adithya College of Arts and Science",
+      period: "2023 – 2025",
+      icon: Star,
+      color: "from-amber-400 to-orange-500",
+    },
+    {
+      title: "Student Council Member",
+      organization: "Sri Krishna Adithya College of Arts and Science",
+      period: "2022 – 2025",
+      icon: GraduationCap,
+      color: "from-sky-400 to-blue-500",
+    },
+  ];
+
+  const certifications = [
+    {
+      title: "Google UX Design",
+      issuer: "Coursera",
+      icon: BookOpen,
+      color: "from-blue-500 to-indigo-600",
+    },
+    {
+      title: "Demystifying Networking",
+      issuer: "NPTEL",
+      icon: BookOpen,
+      color: "from-emerald-400 to-teal-500",
+    },
+    {
+      title: "Designing & Deploying Computer Networks with Bootcamp",
+      issuer: "Internet Society (ISOC)",
+      icon: BookOpen,
+      color: "from-amber-400 to-orange-500",
+    },
+  ];
+
+  const stats = [
+    { value: "4", label: "Achievements", icon: Trophy, color: "from-yellow-400 to-orange-500" },
+    { value: "3", label: "Leadership Roles", icon: Zap, color: "from-violet-500 to-indigo-600" },
+    { value: "3+", label: "Courses & Certs", icon: Award, color: "from-emerald-400 to-teal-500" },
+  ];
+
   return (
-    <div className="min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-background">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
+        <div className="gradient-sphere float-1" style={{ width: 450, height: 450, background: "radial-gradient(circle, hsl(250 85% 68%/0.08) 0%, transparent 70%)", top: "-5%", right: "-5%" }} />
+        <div className="gradient-sphere float-3" style={{ width: 350, height: 350, background: "radial-gradient(circle, hsl(32 95% 55%/0.07) 0%, transparent 70%)", bottom: "0%", left: "-5%" }} />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 pt-28 pb-20 max-w-6xl">
+
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            Achievements & <span className="text-gradient">Recognition</span>
+          <span className="section-label mb-4 block">Recognition & Leadership</span>
+          <h1 className="headline text-5xl md:text-7xl mb-6">
+            Achievements &amp;{" "}
+            <span className="text-gradient-warm animate-gradient" style={{ backgroundSize: "200% auto" }}>
+              Milestones
+            </span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Milestones that mark my journey of growth and learning
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Every milestone marks a step in my journey of growth, learning, and leadership.
           </p>
         </motion.div>
 
-        {/* Achievements Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {achievements.map((achievement, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <motion.div
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                whileTap={{ scale: 0.98 }}
-                className="h-full"
-              >
-                <Card className="group h-full p-6 relative overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-300">
-                  {/* Premium Gradient Glow Effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${achievement.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-
-                  {/* Subtle Border Gradient */}
-                  <div className={`absolute inset-0 border border-transparent group-hover:border-${achievement.color.split(' ')[0].replace('from-', '')}/20 rounded-xl transition-colors duration-300 pointer-events-none`} />
-
-                  <div className="relative z-10 h-full flex flex-col">
-                    {/* Icon Container with Glass Effect */}
-                    <div className="mb-6 flex justify-start">
-                      <motion.div
-                        className={`p-4 rounded-2xl bg-gradient-to-br ${achievement.color} shadow-lg relative`}
-                        whileHover={{
-                          scale: 1.1,
-                          rotate: [0, -5, 5, -5, 0],
-                        }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 15
-                        }}
-                      >
-                        {/* Inner glow for premium feel */}
-                        <div className="absolute inset-0 rounded-2xl bg-white/20 blur-sm" />
-                        <achievement.icon className="h-8 w-8 text-white relative z-10" />
-                      </motion.div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 space-y-3">
-                      <h3 className="text-2xl font-bold group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-400 transition-all">
-                        {achievement.title}
-                      </h3>
-
-                      <div className="flex items-center gap-3 text-sm font-medium text-muted-foreground bg-secondary/50 w-fit px-3 py-1 rounded-full backdrop-blur-sm border border-border/50">
-                        <span className="text-foreground/80">{achievement.organization}</span>
-                        <span className="w-1 h-1 rounded-full bg-foreground/20" />
-                        <span className="text-primary">{achievement.year}</span>
-                      </div>
-
-                      <p className="text-muted-foreground leading-relaxed pt-2">
-                        {achievement.description}
-                      </p>
-                    </div>
-
-                    {/* Premium Badge */}
-                    <div className="mt-6 flex items-center justify-between pt-4 border-t border-white/5">
-                      <div className="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-primary/80">
-                        <Award className="h-3 w-3" />
-                        <span>Certified</span>
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, x: -10 }}
-                        whileHover={{ opacity: 1, x: 0 }}
-                        className="text-primary"
-                      >
-                        <span className="text-xs">View Details &rarr;</span>
-                      </motion.div>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            </motion.div>
-          ))}
+        {/* Achievements grid */}
+        <div className="mb-20">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
+            <span className="section-label mb-2 block text-center">Recognitions</span>
+            <h2 className="headline text-3xl text-center">Awards</h2>
+          </motion.div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {achievements.map((a, i) => (
+              <AchievementCard key={i} achievement={a} index={i} />
+            ))}
+          </div>
         </div>
 
-        {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
-          {[
-            { number: '10+', label: 'Achievements' },
-            { number: '5+', label: 'Leadership Roles' },
-            { number: '20+', label: 'Certifications' },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card className="p-6 text-center glass">
-                <motion.div
-                  initial={{ scale: 1 }}
-                  whileHover={{ scale: 1.1 }}
-                  className="text-4xl font-bold text-gradient mb-2"
-                >
-                  {stat.number}
-                </motion.div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
+        {/* Leadership */}
+        <div className="mb-20">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
+            <span className="section-label mb-2 block text-center">Positions Held</span>
+            <h2 className="headline text-3xl text-center">Leadership & Activities</h2>
+          </motion.div>
+          <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {leadership.map((l, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative rounded-3xl bg-card border border-border p-6 shadow-card inner-glow hover:border-primary/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${l.color} opacity-0 group-hover:opacity-[0.04] rounded-3xl transition-opacity duration-500`} />
+                <div className="relative z-10 flex items-start gap-3">
+                  <div className={`p-3 rounded-2xl bg-gradient-to-br ${l.color} shadow-sm flex-shrink-0`}>
+                    <l.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-foreground leading-snug">{l.title}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{l.organization}</p>
+                    <span className="tag text-[0.58rem] mt-2 inline-block">{l.period}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
 
-      <FloatingButton to="/contact" icon={Mail} text="Get in Touch" />
+        {/* Courses & Certifications */}
+        <div className="mb-20">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
+            <span className="section-label mb-2 block text-center">Learning</span>
+            <h2 className="headline text-3xl text-center">Courses &amp; Certifications</h2>
+          </motion.div>
+          <div className="grid sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            {certifications.map((c, i) => (
+              <CertCard key={i} cert={c} index={i} />
+            ))}
+          </div>
+        </div>
+
+        {/* Stats */}
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <div className="text-center mb-10">
+            <span className="section-label mb-2 block">By the Numbers</span>
+            <h2 className="headline text-3xl">Impact at a Glance</h2>
+          </div>
+          <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+            {stats.map((s, i) => <StatCard key={i} {...s} />)}
+          </div>
+        </motion.div>
+
+      </div>
     </div>
   );
 };

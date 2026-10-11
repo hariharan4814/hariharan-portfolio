@@ -1,265 +1,415 @@
-import { motion } from 'framer-motion';
-import { Download, GraduationCap, Award, Code, Palette } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import FloatingButton from '@/components/FloatingButton';
-import { Briefcase } from 'lucide-react';
+﻿import { useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import {
+  Download, GraduationCap, Award, Code, Palette, Briefcase,
+  Star, CheckCircle2, Building2, Database, Wrench, Users
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---- Animated counter ---- */
+function Counter({ to, label, suffix = "" }: { to: number; label: string; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  useEffect(() => {
+    if (!inView || !ref.current) return;
+    const el = ref.current;
+    gsap.fromTo(el, { innerText: 0 }, {
+      innerText: to,
+      duration: 1.6,
+      ease: "power2.out",
+      snap: { innerText: 1 },
+      onUpdate() { el.innerText = Math.round(parseFloat(el.innerText)) + suffix; },
+    });
+  }, [inView, to, suffix]);
+  return <span ref={ref} className="text-5xl md:text-6xl font-black text-gradient">0{suffix}</span>;
+}
+
+/* ---- Education card ---- */
+function EducationCard({ edu, index }: { edu: any; index: number }) {
+  const palettes = [
+    "from-violet-500 to-indigo-600",
+    "from-emerald-400 to-teal-500",
+    "from-amber-400 to-orange-500",
+  ];
+  const c = palettes[index % palettes.length];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ delay: index * 0.12, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="sticky-card mb-6"
+      style={{ top: `${80 + index * 20}px` }}
+    >
+      <div className="relative group rounded-3xl bg-card border border-border p-6 md:p-7 shadow-card hover:shadow-hard transition-all duration-300 overflow-hidden inner-glow">
+        <div className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-3xl bg-gradient-to-b ${c}`} />
+        <div className={`absolute inset-0 bg-gradient-to-br ${c} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 rounded-3xl`} />
+        <div className="flex flex-col sm:flex-row sm:items-start gap-4 relative z-10">
+          <div className={`p-3 rounded-2xl bg-gradient-to-br ${c} shadow-md flex-shrink-0`}>
+            <GraduationCap className="h-6 w-6 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+              <h3 className="text-base md:text-lg font-bold text-foreground group-hover:text-primary transition-colors">{edu.degree}</h3>
+              <span className="tag text-[0.6rem] font-black tracking-widest uppercase flex-shrink-0">{edu.year}</span>
+            </div>
+            <p className="text-muted-foreground font-medium text-sm">{edu.institution}</p>
+            {edu.score && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Score: <span className="font-semibold text-foreground">{edu.score}</span>
+                {edu.scoreNote && <span className="ml-1 text-muted-foreground/70">({edu.scoreNote})</span>}
+              </p>
+            )}
+            <div className="mt-2 flex items-center gap-2">
+              {edu.status === "Pursuing" ? (
+                <><Star className="h-3 w-3 text-violet-500" /><span className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider">In Progress</span></>
+              ) : (
+                <><CheckCircle2 className="h-3 w-3 text-emerald-500" /><span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Completed</span></>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ---- Skill pill ---- */
+function SkillPill({ skill, index, color }: { skill: string; index: number; color: string }) {
+  return (
+    <motion.span
+      initial={{ opacity: 0, scale: 0.85 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05, type: "spring", stiffness: 200 }}
+      whileHover={{ scale: 1.06, y: -2 }}
+      className={`px-3 py-1.5 rounded-xl text-sm font-semibold border ${color} cursor-default transition-shadow hover:shadow-hard-sm`}
+    >
+      {skill}
+    </motion.span>
+  );
+}
+
+/* ============ ABOUT PAGE ============ */
 const About = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const education = [
     {
-      degree: 'Master of Science in Computer Science',
-      institution: 'PSG College of Arts and Science',
-      year: '2025 – 27 (Expected)',
-      status: 'Pursuing',
+      degree: "Master of Science in Computer Science",
+      institution: "PSG College of Arts & Science, Coimbatore",
+      year: "2025 – 2027",
+      status: "Pursuing",
+      score: "87.15%",
+      scoreNote: "current score, not final",
     },
     {
-      degree: 'Bachelor of Science in Computer Technology',
-      institution: 'Sri Krishna Adithya College of Arts and Science',
-      year: '2022 - 25',
-      status: 'Completed',
+      degree: "Bachelor of Science in Computer Technology",
+      institution: "Sri Krishna Adithya College of Arts and Science, Coimbatore",
+      year: "2022 – 2025",
+      status: "Completed",
+      score: "86.26%",
+    },
+    {
+      degree: "Higher Secondary Certificate (HSC)",
+      institution: "C.S.I. Higher Secondary School, Coimbatore",
+      year: "2021 – 2022",
+      status: "Completed",
+      score: "74.5%",
     },
   ];
 
-  const skills = {
-    technical: ['Python', 'HTML/CSS', 'Bootstrap', 'SQL', 'Git', 'GitHub'],
-    design: ['Figma', 'Canva', 'Capcut', 'UI/UX Design', 'Graphic Design'],
-    soft: ['Problem-Solving', 'Team Collaboration', 'Time Management', 'Communication', 'Leadership'],
-  };
+  const skillGroups = [
+    {
+      key: "frontend",
+      label: "Frontend",
+      items: ["HTML", "CSS", "React", "Bootstrap"],
+      icon: Code,
+      accent: "from-violet-500 to-indigo-600",
+      color: "bg-violet-50 dark:bg-violet-950/30 border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300",
+    },
+    {
+      key: "backend",
+      label: "Backend & DB",
+      items: ["Python", "Django", "Flask", "PostgreSQL", "SQLite", "SQL"],
+      icon: Database,
+      accent: "from-emerald-400 to-teal-500",
+      color: "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300",
+    },
+    {
+      key: "tools",
+      label: "Tools & Design",
+      items: ["Git", "GitHub", "VS Code", "Figma", "Canva", "YOLOv8", "OpenCV"],
+      icon: Wrench,
+      accent: "from-amber-400 to-orange-500",
+      color: "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300",
+    },
+    {
+      key: "soft",
+      label: "Professional Strengths",
+      items: ["Problem-Solving", "Team Collaboration", "Time Management", "Communication", "Team Management"],
+      icon: Users,
+      accent: "from-sky-400 to-blue-600",
+      color: "bg-sky-50 dark:bg-sky-950/30 border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300",
+    },
+  ];
+
+  const stats = [
+    { to: 4, suffix: "+", label: "Achievements" },
+    { to: 4, suffix: "+", label: "Projects" },
+    { to: 3, suffix: "+", label: "Certifications" },
+  ];
 
   return (
-    <div className="min-h-screen pt-24 pb-16 px-4 relative flex flex-col items-center justify-center">
-      {/* Background with tech overlay */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-background">
-        {/* Soft Modern Tech Grid Overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_100%)] z-10" />
-        {/* Glow behind */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] -z-10" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[128px] -z-10" />
+    <div className="min-h-screen bg-background" ref={sectionRef}>
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
+        <div className="gradient-sphere float-2" style={{ width: 500, height: 500, background: "radial-gradient(circle, hsl(250 85% 68%/0.09) 0%, transparent 70%)", top: "-10%", right: "-10%" }} />
+        <div className="gradient-sphere float-3" style={{ width: 400, height: 400, background: "radial-gradient(circle, hsl(32 95% 55%/0.07) 0%, transparent 70%)", bottom: "10%", left: "-8%" }} />
       </div>
 
-      <div className="container mx-auto max-w-6xl relative z-30">
-        {/* Header Section */}
+      <div className="relative z-10 container mx-auto max-w-6xl px-4 pt-28 pb-20">
+
+        {/* Page header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 space-y-4"
+          className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-            </span>
-            Available for Opportunities
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Me</span>
+          <span className="section-label mb-4 block">About Me</span>
+          <h1 className="headline text-5xl md:text-7xl mb-6">
+            The{" "}
+            <span className="text-gradient-hero animate-gradient" style={{ backgroundSize: "200% auto" }}>
+              Story
+            </span>{" "}
+            Behind the Portfolio
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Passionate Full Stack Developer creating seamless digital experiences.
+            Developer based in Coimbatore — bridging useful functionality with clear, accessible interfaces.
           </p>
         </motion.div>
 
-        {/* Profile & Bio Section */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 max-w-6xl mx-auto w-full">
-          {/* Elegant Image Presentation */}
+        {/* Profile + Bio */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-28">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="flex justify-center"
           >
-            <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5] xl:aspect-[3/4] group">
-              {/* Animated Glowing border */}
-              <div className="absolute -inset-1 bg-gradient-to-tr from-primary via-blue-400 to-transparent rounded-[2.5rem] blur-xl opacity-40 group-hover:opacity-60 transition duration-700"></div>
-              
-              {/* Glass Card Container */}
-              <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden border border-white/10 dark:border-white/20 bg-background/50 backdrop-blur-sm p-3 shadow-2xl">
-                <div className="w-full h-full rounded-3xl overflow-hidden relative bg-accent/10">
-                  <img
-                    src="/myimg.png"
-                    alt="Hariharan B"
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
-                  {/* Floating Tech Badge */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-xl border border-white/10 p-4 rounded-2xl flex items-center justify-between shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                    <div>
-                      <p className="font-bold text-base text-foreground">Hariharan B</p>
-                      <p className="text-xs text-muted-foreground font-medium flex items-center gap-1.5 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> 
-                        Available Now
-                      </p>
-                    </div>
-                    <div className="flex gap-2">
-                       <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                         <Code className="w-4 h-4" />
-                       </div>
-                    </div>
-                  </div>
+            <div className="relative group">
+              <div className="absolute -top-4 -right-4 z-20 tilt-2 bg-accent text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-hard-sm uppercase tracking-wider">
+                ✦ Open to Work
+              </div>
+              <div className="absolute inset-0 rounded-[2.5rem] bg-primary/20 translate-x-3 translate-y-3 transition-transform group-hover:translate-x-5 group-hover:translate-y-5 duration-300" />
+              <div className="relative w-72 h-96 md:w-80 md:h-[440px] rounded-[2.5rem] overflow-hidden border-2 border-border bg-secondary shadow-2xl inner-glow">
+                <img
+                  src="/myimg.png"
+                  alt="Hariharan B"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <div className="absolute bottom-5 left-4 right-4 glass rounded-2xl px-4 py-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-lg">
+                  <p className="font-bold text-sm text-foreground">Hariharan B</p>
+                  <p className="text-xs text-muted-foreground">Full-Stack Developer · M.Sc CS</p>
                 </div>
               </div>
-              
-              {/* Futuristic Cybernetic Accents */}
-              <div className="absolute -bottom-6 -left-6 w-24 h-24 border-b-4 border-l-4 border-primary/40 rounded-bl-[2.5rem] transition-transform group-hover:-translate-x-2 group-hover:translate-y-2 duration-500"></div>
-              <div className="absolute -top-6 -right-6 w-24 h-24 border-t-4 border-r-4 border-blue-400/40 rounded-tr-[2.5rem] transition-transform group-hover:translate-x-2 group-hover:-translate-y-2 duration-500"></div>
             </div>
           </motion.div>
 
-          {/* Bio Text Space */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6 md:space-y-8 p-6 sm:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-card/60 dark:bg-black/40 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] relative overflow-hidden"
+            className="space-y-5"
           >
-            {/* Tech Scanline Effect inside Card */}
-            <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.05)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20" />
-            
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight relative z-10 leading-tight">
-              Turning Complex Problems into <br className="hidden xl:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Elegant Technology</span>
-            </h2>
-            
-            <div className="w-16 h-1 flex rounded-full relative z-10 overflow-hidden">
-               <div className="w-1/2 h-full bg-primary" />
-               <div className="w-1/2 h-full bg-blue-400" />
+            <div>
+              <span className="section-label mb-3 block">My Story</span>
+              <h2 className="headline text-3xl md:text-4xl mb-4">
+                Building Practical Apps with{" "}
+                <span className="text-gradient">Thoughtful Interfaces</span>
+              </h2>
+              <div className="section-divider mb-5" />
             </div>
 
-            <p className="text-foreground/90 text-base md:text-lg font-medium leading-relaxed relative z-10">
-              Master's student in Computer Science at PSG College with a knack for building user-centric, high-performance applications. My journey bridges the gap between <span className="text-primary font-bold">engineering logic</span> and <span className="text-primary font-bold">creative design</span>.
+            <p className="text-foreground/85 text-base leading-relaxed">
+              I&apos;m Hariharan B, a developer based in Coimbatore, currently pursuing an{" "}
+              <span className="font-semibold text-primary">M.Sc in Computer Science</span> at PSG College of Arts &amp; Science.
+              My interests include full-stack development, Python applications, and UI/UX design.
             </p>
-            <p className="text-foreground/70 text-base md:text-lg leading-relaxed relative z-10">
-              Architecting robust backends and refining pixel-perfect UI interactions, I bring a detail-oriented, modern tech approach to every project.
+            <p className="text-muted-foreground text-base leading-relaxed">
+              My work includes responsive interfaces, API integration, and a smart farm monitoring system
+              built with Flask, YOLOv8, and OpenCV. I enjoy connecting useful functionality with clear,
+              accessible interfaces.
+            </p>
+            <p className="text-muted-foreground text-base leading-relaxed">
+              Alongside my technical work, I serve as{" "}
+              <span className="font-semibold text-foreground">Association Chairperson</span> for the
+              Department of Computer Science at PSGCAS — strengthening my communication, teamwork, and coordination skills.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4 relative z-10">
-              <Button className="w-full sm:w-auto rounded-full h-12 md:h-14 px-8 text-sm md:text-base shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1 transition-all" asChild>
-                <a href="HARIHARAN_CV.pdf" target="_blank" rel="noopener noreferrer">
-                  <Download className="mr-2 h-5 w-5" /> Download Resume
+            <div className="flex flex-wrap gap-2 pt-1">
+              {["🎓 M.Sc CS — PSG", "⚛️ React / Flask", "🤖 YOLOv8 / CV", "🎨 UI/UX Design", "🤝 Team Leader"].map((s) => (
+                <span key={s} className="sticker text-primary">{s}</span>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Button
+                asChild
+                className="rounded-2xl h-11 px-6 font-semibold gradient-primary text-white border-0 shadow-hard-sm hover:shadow-hard hover:-translate-y-0.5 transition-all"
+              >
+                <a href="/HARIHARAN_CV.pdf" target="_blank" rel="noopener noreferrer">
+                  <Download className="mr-2 h-4 w-4" /> Download Résumé
                 </a>
               </Button>
-              <Button variant="outline" className="w-full sm:w-auto rounded-full h-12 md:h-14 px-8 text-sm md:text-base bg-background/50 backdrop-blur-md border-white/20 hover:bg-white/10 hover:border-white/40 transition-all hover:-translate-y-1" asChild>
-                <a href="/contact">Let's Talk</a>
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-2xl h-11 px-6 font-semibold border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all"
+              >
+                <a href="/contact">Contact Me</a>
               </Button>
             </div>
           </motion.div>
         </div>
 
-        {/* Education Section */}
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-24"
+          className="grid grid-cols-3 gap-6 mb-28 max-w-2xl mx-auto"
         >
-          <h2 className="text-3xl font-bold mb-10 text-center flex items-center justify-center gap-3">
-            <GraduationCap className="h-8 w-8 text-primary" /> Education
-          </h2>
+          {stats.map((s, i) => (
+            <div key={i} className="text-center glass rounded-3xl p-6 border border-border inner-glow">
+              <Counter to={s.to} suffix={s.suffix} label={s.label} />
+              <p className="text-sm text-muted-foreground mt-1 font-medium">{s.label}</p>
+            </div>
+          ))}
+        </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full">
-            {education.map((edu, i) => (
-              <Card key={i} className="p-6 md:p-8 border-white/10 bg-background/60 dark:bg-black/60 backdrop-blur-xl shadow-lg hover:shadow-primary/10 transition-all hover:-translate-y-1 group">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-4 rounded-xl bg-primary/20 text-primary group-hover:scale-110 transition-transform">
-                    <Award className="h-8 w-8" />
+        {/* Experience */}
+        <div className="mb-28">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="section-label mb-3 block">Work Experience</span>
+            <h2 className="headline text-4xl md:text-5xl">
+              <Building2 className="inline-block mr-3 h-9 w-9 text-primary mb-1" />
+              Experience
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto"
+          >
+            <div className="relative group rounded-3xl bg-card border border-border p-6 md:p-8 shadow-card inner-glow overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-3xl bg-gradient-to-b from-violet-500 to-indigo-600" />
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4 relative z-10">
+                <div className="p-3 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-md flex-shrink-0">
+                  <Briefcase className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                    <h3 className="text-lg font-bold text-foreground">Frontend Developer Intern</h3>
+                    <span className="tag text-[0.6rem] font-black tracking-widest uppercase">Jan 2026</span>
                   </div>
-                  <span className="px-4 py-1.5 rounded-full bg-secondary/80 text-xs font-bold border border-white/10 backdrop-blur-sm">
-                    {edu.year}
-                  </span>
+                  <p className="text-primary font-semibold text-sm mb-3">Vision Crafters</p>
+                  <ul className="text-muted-foreground text-sm space-y-1.5 list-none">
+                    {[
+                      "Built responsive web pages using HTML, CSS, and React.",
+                      "Integrated REST APIs to display dynamic data.",
+                      "Converted Figma designs into interactive interfaces.",
+                      "Fixed UI bugs and improved page loading performance.",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">›</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{edu.degree}</h3>
-                <p className="text-muted-foreground font-medium md:text-lg">{edu.institution}</p>
-                <div className="mt-6 pt-5 border-t border-white/10">
-                  <span className={`text-sm md:text-base font-bold tracking-wide uppercase ${edu.status === 'Pursuing' ? 'text-blue-400' : 'text-green-500'}`}>
-                    {edu.status === 'Pursuing' ? '⚡ ' : '✓ '} {edu.status}
-                  </span>
-                </div>
-              </Card>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Education */}
+        <div className="mb-28">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="section-label mb-3 block">Academic Journey</span>
+            <h2 className="headline text-4xl md:text-5xl">
+              <GraduationCap className="inline-block mr-3 h-9 w-9 text-primary mb-1" />
+              Education
+            </h2>
+          </motion.div>
+          <div className="max-w-2xl mx-auto space-y-0">
+            {education.map((edu, i) => (
+              <EducationCard key={i} edu={edu} index={i} />
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Skills Section (Bento Grid Style) */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl font-bold mb-10 text-center flex items-center justify-center gap-3">
-            <Code className="h-8 w-8 text-primary" /> Expertise
-          </h2>
+        {/* Skills */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="section-label mb-3 block">What I Know</span>
+            <h2 className="headline text-4xl md:text-5xl">
+              <Code className="inline-block mr-3 h-9 w-9 text-primary mb-1" />
+              Technical Skills
+            </h2>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Technical Skills */}
-            <Card className="p-6 glass hover:border-primary/30 transition-colors">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <Code className="h-5 w-5" />
-                </div>
-                <h3 className="font-bold text-xl">Technical</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {skills.technical.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 rounded-md bg-secondary/50 border border-border text-sm font-medium hover:bg-secondary transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </Card>
-
-            {/* Design Skills */}
-            <Card className="p-6 glass hover:border-blue-400/30 transition-colors">
-               <div className="flex items-center gap-3 mb-4">
-                 <div className="p-2 rounded-lg bg-blue-400/10 text-blue-400">
-                   <Palette className="h-5 w-5" />
-                 </div>
-                 <h3 className="font-bold text-xl">Design</h3>
-               </div>
-              <div className="flex flex-wrap gap-2">
-                {skills.design.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 rounded-md bg-secondary/50 border border-border text-sm font-medium hover:bg-secondary transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </Card>
-
-            {/* Soft Skills */}
-            <Card className="p-6 glass hover:border-emerald-500/30 transition-colors">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
-                  <Briefcase className="h-5 w-5" />
-                </div>
-                <h3 className="font-bold text-xl">Soft Skills</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {skills.soft.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 rounded-md bg-secondary/50 border border-border text-sm font-medium hover:bg-secondary transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </Card>
+          <div className="grid md:grid-cols-2 gap-6">
+            {skillGroups.map((cat, i) => {
+              const Icon = cat.icon;
+              return (
+                <motion.div
+                  key={cat.key}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="relative group rounded-3xl bg-card border border-border p-6 shadow-card hover:shadow-hard transition-all duration-300 overflow-hidden inner-glow"
+                >
+                  <div className={`absolute top-0 left-6 right-6 h-0.5 rounded-b-full bg-gradient-to-r ${cat.accent}`} />
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`p-2.5 rounded-xl bg-gradient-to-br ${cat.accent} shadow-sm`}>
+                      <Icon className="h-5 w-5 text-white" />
+                    </div>
+                    <h3 className="font-bold text-base text-foreground">{cat.label}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {cat.items.map((skill, j) => (
+                      <SkillPill key={skill} skill={skill} index={j} color={cat.color} />
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
 
-      </div>
-
-      {/* Scroll to Top helper if needed, or remove FloatingButton completely if layout handles navigation well. 
-          Keeping a floating project button or 'back to top' serves mobile well. 
-      */}
-      <div className="hidden md:block">
-        <FloatingButton to="/projects" icon={Briefcase} text="My Projects" />
       </div>
     </div>
   );
