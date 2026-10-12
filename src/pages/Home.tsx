@@ -112,10 +112,10 @@ const Home = () => {
                 <span>👋 Welcome to my portfolio</span>
               </motion.div>
 
-              <div className="headline text-4xl sm:text-6xl lg:text-7xl">
-                <WordReveal text="Hi, I'm" delay={0.3} className="block text-foreground" />
+              <div className="headline text-4xl min-[420px]:text-5xl sm:text-6xl lg:text-7xl">
+                <WordReveal text="Hi, I'm" delay={0.3} className="block text-foreground dark:text-zinc-100" />
                 <motion.span
-                  className="block text-gradient-hero animate-gradient"
+                  className="block text-gradient-hero animate-gradient drop-shadow-sm dark:drop-shadow-[0_2px_18px_rgba(147,197,253,0.35)]"
                   style={{ backgroundSize: "200% auto" }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

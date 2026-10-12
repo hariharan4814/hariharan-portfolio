@@ -349,7 +349,7 @@ export const HangingIdCard = ({
 
               {/* Card Body */}
               <div className="bg-card px-4 py-4 flex flex-col items-center gap-1.5 flex-1">
-                <p className="text-base font-extrabold text-foreground text-center leading-tight">
+                <p className="text-base sm:text-lg font-extrabold text-foreground dark:text-white text-center leading-tight">
                   {name}
                 </p>
                 <p className="text-xs text-muted-foreground font-semibold text-center">

@@ -1,4 +1,5 @@
-import { Linkedin, Github, Instagram, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Linkedin, Github, Instagram, MessageCircle, ArrowUp, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
@@ -17,33 +18,53 @@ const Footer = () => {
     { name: "Contact", href: "/contact" },
   ];
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="relative border-t border-border/50 bg-background overflow-hidden pb-24 md:pb-0" role="contentinfo">
+    <footer
+      className="relative border-t border-border/50 bg-background/80 backdrop-blur-md overflow-hidden pb-32 md:pb-32"
+      style={{ paddingBottom: "calc(7rem + var(--safe-bottom))" }}
+      role="contentinfo"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 py-12 relative z-10">
+      <div className="container mx-auto px-4 pt-12 pb-6 relative z-10">
         {/* Top row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
-          {/* Brand */}
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center text-white font-black text-sm shadow-hard-sm">
+          {/* Brand Link */}
+          <Link
+            to="/"
+            onClick={scrollToTop}
+            className="flex items-center gap-3 group cursor-pointer transition-transform hover:scale-[1.02]"
+            aria-label="Back to home"
+          >
+            <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center text-white font-black text-sm shadow-hard-sm group-hover:shadow-md transition-shadow">
               HB
             </div>
-            <div>
-              <p className="font-black text-foreground tracking-tight">Hariharan B</p>
-              <p className="text-xs text-muted-foreground font-medium">Developer & Designer</p>
+            <div className="text-left">
+              <p className="font-black text-foreground dark:text-white tracking-tight group-hover:text-primary transition-colors text-base">
+                Hariharan B
+              </p>
+              <p className="text-xs text-muted-foreground dark:text-zinc-400 font-medium">Developer & Designer</p>
             </div>
-          </div>
+          </Link>
 
           {/* Nav links */}
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center" aria-label="Footer navigation">
             {navLinks.map((l) => (
-              <a key={l.name} href={l.href} className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                key={l.name}
+                to={l.href}
+                onClick={scrollToTop}
+                className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+              >
                 {l.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -71,10 +92,19 @@ const Footer = () => {
         <div className="section-divider mb-6" />
 
         {/* Bottom row */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-center">
-          <p className="text-xs text-muted-foreground">
-            © 2026 Hariharan B. All rights reserved.
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <p className="text-xs text-muted-foreground dark:text-zinc-400">
+            © {new Date().getFullYear()} Hariharan B. All rights reserved.
           </p>
+
+          <button
+            onClick={scrollToTop}
+            className="text-xs font-semibold text-muted-foreground dark:text-zinc-300 hover:text-primary transition-colors flex items-center gap-1.5 cursor-pointer group"
+            aria-label="Scroll back to top"
+          >
+            <span>Back to top</span>
+            <ArrowUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />
+          </button>
         </div>
       </div>
     </footer>

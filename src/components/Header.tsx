@@ -122,7 +122,7 @@ const Header = () => {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="md:hidden fixed top-0 left-0 right-0 z-40 glass border-b border-border/50 px-4 py-2.5 flex items-center justify-between"
+        className="md:hidden fixed top-0 left-0 right-0 z-40 bg-background/90 dark:bg-[#0b1329]/95 backdrop-blur-xl border-b border-border/70 shadow-sm px-4 py-2.5 flex items-center justify-between"
         style={{ paddingTop: "max(0.6rem, var(--safe-top))" }}
       >
         <NavLink to="/" onClick={handleNavTap} className="flex items-center gap-2.5 active:scale-95 transition-transform">
@@ -130,13 +130,13 @@ const Header = () => {
             HB
           </div>
           <div className="flex flex-col">
-            <span className="text-xs font-black tracking-tight text-foreground leading-tight">Hariharan B.</span>
+            <span className="text-sm font-black tracking-tight text-foreground dark:text-white leading-tight">Hariharan B.</span>
             <div className="flex items-center gap-1.5">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-[10px] font-semibold text-muted-foreground">Open to Work</span>
+              <span className="text-[10px] font-semibold text-muted-foreground dark:text-zinc-300">Open to Work</span>
             </div>
           </div>
         </NavLink>

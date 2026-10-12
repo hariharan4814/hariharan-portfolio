@@ -88,7 +88,7 @@ const Layout = ({ children }: LayoutProps) => {
         { label: "Send a Message", onClick: () => navigate("/contact") },
         { separator: true },
         { label: "Email Directly", onClick: () => window.open("mailto:hariharan4814@gmail.com") },
-        { label: "Chat on WhatsApp", onClick: () => window.open("https://wa.me/919944682054", "_blank") },
+        { label: "Chat on WhatsApp", onClick: () => window.open("https://wa.me/919940099083", "_blank") },
       ],
     },
   ];
