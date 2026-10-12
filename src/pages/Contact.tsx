@@ -66,7 +66,7 @@ const Contact = () => {
   const inputClass = "bg-background/60 border-border focus:border-primary/60 h-12 rounded-2xl transition-all text-foreground placeholder:text-muted-foreground/50 focus:ring-2 focus:ring-primary/20";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       {/* Background spheres */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div className="gradient-sphere float-1" style={{ width: 450, height: 450, background: "radial-gradient(circle, hsl(250 85% 68%/0.12) 0%, transparent 70%)", top: "-5%", right: "-5%" }} />
@@ -83,29 +83,15 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <span className="section-label mb-4 block">Get in Touch</span>
-          <h1 className="headline text-5xl md:text-7xl mb-6">
+          <h1 className="headline text-4xl sm:text-5xl md:text-7xl mb-6">
             Let&apos;s Build{" "}
             <span className="text-gradient-hero animate-gradient" style={{ backgroundSize: "200% auto" }}>
-              Something Useful
+              Something Awesome Together!
             </span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Have a project, internship, or developer opportunity in mind? Get in touch.
           </p>
-
-          {/* Status badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 }}
-            className="inline-flex items-center gap-2 mt-6 px-4 py-2 rounded-full glass border border-border shadow-sm"
-          >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            </span>
-            <span className="text-sm font-bold text-foreground">Available for opportunities</span>
-          </motion.div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -157,7 +143,7 @@ const Contact = () => {
                         id="name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="John Doe"
+                        placeholder="Enter Your Name"
                         className={inputClass}
                         required
                       />
@@ -169,7 +155,7 @@ const Contact = () => {
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="john@example.com"
+                        placeholder="Enter Your Email"
                         className={inputClass}
                         required
                       />

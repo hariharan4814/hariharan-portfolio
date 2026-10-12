@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Trophy, Award, Users, Star, BookOpen, Zap, GraduationCap } from "lucide-react";
 import gsap from "gsap";
@@ -187,7 +187,7 @@ const Achievements = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div className="gradient-sphere float-1" style={{ width: 450, height: 450, background: "radial-gradient(circle, hsl(250 85% 68%/0.08) 0%, transparent 70%)", top: "-5%", right: "-5%" }} />
         <div className="gradient-sphere float-3" style={{ width: 350, height: 350, background: "radial-gradient(circle, hsl(32 95% 55%/0.07) 0%, transparent 70%)", bottom: "0%", left: "-5%" }} />

@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Download, GraduationCap, Award, Code, Palette, Briefcase,
@@ -165,7 +165,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background" ref={sectionRef}>
+    <div className="min-h-screen bg-transparent" ref={sectionRef}>
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div className="gradient-sphere float-2" style={{ width: 500, height: 500, background: "radial-gradient(circle, hsl(250 85% 68%/0.09) 0%, transparent 70%)", top: "-10%", right: "-10%" }} />
         <div className="gradient-sphere float-3" style={{ width: 400, height: 400, background: "radial-gradient(circle, hsl(32 95% 55%/0.07) 0%, transparent 70%)", bottom: "10%", left: "-8%" }} />
@@ -195,35 +195,11 @@ const About = () => {
 
         {/* Profile + Bio */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-28">
+          {/* Left column: My Story */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex justify-center"
-          >
-            <div className="relative group">
-              <div className="absolute -top-4 -right-4 z-20 tilt-2 bg-accent text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-hard-sm uppercase tracking-wider">
-                ✦ Open to Work
-              </div>
-              <div className="absolute inset-0 rounded-[2.5rem] bg-primary/20 translate-x-3 translate-y-3 transition-transform group-hover:translate-x-5 group-hover:translate-y-5 duration-300" />
-              <div className="relative w-72 h-96 md:w-80 md:h-[440px] rounded-[2.5rem] overflow-hidden border-2 border-border bg-secondary shadow-2xl inner-glow">
-                <img
-                  src="/myimg.png"
-                  alt="Hariharan B"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-                <div className="absolute bottom-5 left-4 right-4 glass rounded-2xl px-4 py-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-lg">
-                  <p className="font-bold text-sm text-foreground">Hariharan B</p>
-                  <p className="text-xs text-muted-foreground">Full-Stack Developer · M.Sc CS</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-5"
           >
             <div>
@@ -243,36 +219,48 @@ const About = () => {
             <p className="text-muted-foreground text-base leading-relaxed">
               My work includes responsive interfaces, API integration, and a smart farm monitoring system
               built with Flask, YOLOv8, and OpenCV. I enjoy connecting useful functionality with clear,
-              accessible interfaces.
-            </p>
-            <p className="text-muted-foreground text-base leading-relaxed">
-              Alongside my technical work, I serve as{" "}
-              <span className="font-semibold text-foreground">Association Chairperson</span> for the
-              Department of Computer Science at PSGCAS — strengthening my communication, teamwork, and coordination skills.
+              intuitive visual design.
             </p>
 
-            <div className="flex flex-wrap gap-2 pt-1">
-              {["🎓 M.Sc CS — PSG", "⚛️ React / Flask", "🤖 YOLOv8 / CV", "🎨 UI/UX Design", "🤝 Team Leader"].map((s) => (
-                <span key={s} className="sticker text-primary">{s}</span>
-              ))}
+            <div className="pt-2 flex flex-wrap gap-4">
+              <a href="/HARIHARAN_CV.pdf" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="rounded-2xl gradient-primary text-white border-0 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all">
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Résumé
+                </Button>
+              </a>
+              <a href="https://github.com/hariharan4814" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline" className="rounded-2xl border-border hover:border-primary active:scale-95 transition-all">
+                  <Briefcase className="mr-2 h-4 w-4" />
+                  GitHub Profile
+                </Button>
+              </a>
             </div>
+          </motion.div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button
-                asChild
-                className="rounded-2xl h-11 px-6 font-semibold gradient-primary text-white border-0 shadow-hard-sm hover:shadow-hard hover:-translate-y-0.5 transition-all"
-              >
-                <a href="/HARIHARAN_CV.pdf" target="_blank" rel="noopener noreferrer">
-                  <Download className="mr-2 h-4 w-4" /> Download Résumé
-                </a>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="rounded-2xl h-11 px-6 font-semibold border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all"
-              >
-                <a href="/contact">Contact Me</a>
-              </Button>
+          {/* Right column: Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex justify-center"
+          >
+            <div className="relative group">
+              <div className="absolute -top-4 -right-4 z-20 tilt-2 bg-accent text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-hard-sm uppercase tracking-wider">
+                ✦ Open to Work
+              </div>
+              <div className="absolute inset-0 rounded-[2.5rem] bg-primary/20 translate-x-3 translate-y-3 transition-transform group-hover:translate-x-5 group-hover:translate-y-5 duration-300" />
+              <div className="relative w-72 h-96 md:w-80 md:h-[440px] rounded-[2.5rem] overflow-hidden border-2 border-border bg-secondary shadow-2xl inner-glow">
+                <img
+                  src="/myimg.png"
+                  alt="Hariharan B"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <div className="absolute bottom-5 left-4 right-4 glass rounded-2xl px-4 py-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-lg">
+                  <p className="font-bold text-sm text-foreground">Hariharan B</p>
+                  <p className="text-xs text-muted-foreground">Full-Stack Developer · M.Sc CS</p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
