@@ -5,6 +5,7 @@ import {
   Star, CheckCircle2, Building2, Database, Wrench, Users
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import HangingIdCard from "@/components/lightswind/hanging-id-card";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -238,30 +239,22 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Right column: Image */}
+          {/* Right column: Interactive Hanging ID Card */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex justify-center"
+            className="flex justify-center items-start pt-2"
           >
-            <div className="relative group">
-              <div className="absolute -top-4 -right-4 z-20 tilt-2 bg-accent text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-hard-sm uppercase tracking-wider">
-                ✦ Open to Work
-              </div>
-              <div className="absolute inset-0 rounded-[2.5rem] bg-primary/20 translate-x-3 translate-y-3 transition-transform group-hover:translate-x-5 group-hover:translate-y-5 duration-300" />
-              <div className="relative w-72 h-96 md:w-80 md:h-[440px] rounded-[2.5rem] overflow-hidden border-2 border-border bg-secondary shadow-2xl inner-glow">
-                <img
-                  src="/myimg.png"
-                  alt="Hariharan B"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-                <div className="absolute bottom-5 left-4 right-4 glass rounded-2xl px-4 py-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-lg">
-                  <p className="font-bold text-sm text-foreground">Hariharan B</p>
-                  <p className="text-xs text-muted-foreground">Full-Stack Developer · M.Sc CS</p>
-                </div>
-              </div>
-            </div>
+            <HangingIdCard
+              name="Hariharan B"
+              role="Full-Stack Developer"
+              badgeId="HB-CS-2025"
+              accentColor="#2563eb"
+              avatarUrl="/myimg.png"
+              ropeLength={115}
+              ropeColor="#0f172a"
+            />
           </motion.div>
         </div>
 

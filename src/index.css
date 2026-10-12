@@ -4,62 +4,62 @@
 
 @layer base {
   :root {
-    /* ── Teal palette (matched to shirt ~hsl 192 65% 38%) ── */
-    --background: 195 18% 97%;
-    --foreground: 200 25% 10%;
-    --card: 195 15% 95%;
-    --card-foreground: 200 25% 10%;
-    --popover: 195 15% 95%;
-    --popover-foreground: 200 25% 10%;
-    --primary: 192 68% 36%;
+    /* ── Midnight Navy, White & Sunlit Amber (extracted from photo) ── */
+    --background: 220 25% 98%;
+    --foreground: 222 45% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 45% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 45% 12%;
+    --primary: 222 68% 30%;         /* Deep Navy blue from shirt */
     --primary-foreground: 0 0% 100%;
-    --secondary: 192 20% 88%;
-    --secondary-foreground: 200 25% 15%;
-    --muted: 195 15% 92%;
-    --muted-foreground: 200 10% 45%;
-    --accent: 172 55% 42%;          /* emerald-teal accent */
+    --secondary: 220 25% 93%;
+    --secondary-foreground: 222 40% 18%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 222 15% 45%;
+    --accent: 38 92% 48%;           /* Warm sunlit amber from backdrop */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 192 15% 84%;
-    --input: 192 15% 84%;
-    --ring: 192 68% 36%;
+    --border: 220 20% 86%;
+    --input: 220 20% 86%;
+    --ring: 222 68% 35%;
     --radius: 0.75rem;
-    --gradient-primary: linear-gradient(135deg, hsl(192 68% 36%) 0%, hsl(172 55% 42%) 100%);
-    --gradient-warm:    linear-gradient(135deg, hsl(172 55% 42%) 0%, hsl(195 70% 52%) 100%);
-    --gradient-hero:    linear-gradient(135deg, hsl(192 68% 30%) 0%, hsl(192 65% 44%) 50%, hsl(172 55% 50%) 100%);
-    --glow-violet: 0 0 40px hsl(192 68% 36% / 0.25);
-    --glow-amber:  0 0 30px hsl(172 55% 42% / 0.3);
-    --shadow-hard:    5px 5px 0px hsl(200 25% 10%);
-    --shadow-hard-sm: 3px 3px 0px hsl(200 25% 10%);
+    --gradient-primary: linear-gradient(135deg, hsl(222 68% 30%) 0%, hsl(220 75% 45%) 60%, hsl(38 92% 48%) 100%);
+    --gradient-warm:    linear-gradient(135deg, hsl(38 92% 48%) 0%, hsl(25 90% 54%) 100%);
+    --gradient-hero:    linear-gradient(135deg, hsl(222 75% 24%) 0%, hsl(222 65% 40%) 50%, hsl(38 90% 48%) 100%);
+    --glow-violet: 0 0 40px hsl(222 68% 40% / 0.25);
+    --glow-amber:  0 0 30px hsl(38 92% 48% / 0.3);
+    --shadow-hard:    5px 5px 0px hsl(222 45% 12%);
+    --shadow-hard-sm: 3px 3px 0px hsl(222 45% 12%);
   }
   .dark {
-    --background: 200 30% 7%;
-    --foreground: 192 18% 92%;
-    --card: 200 28% 10%;
-    --card-foreground: 192 18% 92%;
-    --popover: 200 28% 10%;
-    --popover-foreground: 192 18% 92%;
-    --primary: 192 65% 52%;
-    --primary-foreground: 200 30% 7%;
-    --secondary: 200 20% 16%;
-    --secondary-foreground: 192 18% 82%;
-    --muted: 200 18% 13%;
-    --muted-foreground: 200 10% 52%;
-    --accent: 172 52% 50%;
-    --accent-foreground: 200 30% 7%;
+    --background: 224 45% 7%;        /* Nocturnal midnight navy from shirt shadows */
+    --foreground: 220 20% 93%;
+    --card: 223 38% 11%;
+    --card-foreground: 220 20% 93%;
+    --popover: 223 38% 11%;
+    --popover-foreground: 220 20% 93%;
+    --primary: 220 85% 62%;         /* Luminous sapphire blue */
+    --primary-foreground: 224 45% 7%;
+    --secondary: 223 25% 16%;
+    --secondary-foreground: 220 20% 88%;
+    --muted: 223 20% 14%;
+    --muted-foreground: 220 15% 60%;
+    --accent: 38 95% 58%;           /* Radiant sunlit amber */
+    --accent-foreground: 224 45% 7%;
     --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
-    --border: 200 15% 18%;
-    --input: 200 15% 18%;
-    --ring: 192 65% 52%;
-    --gradient-primary: linear-gradient(135deg, hsl(192 65% 45%) 0%, hsl(172 52% 50%) 100%);
-    --gradient-warm:    linear-gradient(135deg, hsl(172 52% 50%) 0%, hsl(195 68% 58%) 100%);
-    --gradient-hero:    linear-gradient(135deg, hsl(192 65% 35%) 0%, hsl(192 65% 52%) 50%, hsl(172 52% 55%) 100%);
-    --glow-violet: 0 0 40px hsl(192 65% 52% / 0.3);
-    --glow-amber:  0 0 30px hsl(172 52% 50% / 0.3);
-    --shadow-hard:    5px 5px 0px hsl(192 65% 52% / 0.4);
-    --shadow-hard-sm: 3px 3px 0px hsl(192 65% 52% / 0.4);
+    --border: 222 25% 18%;
+    --input: 222 25% 18%;
+    --ring: 220 85% 62%;
+    --gradient-primary: linear-gradient(135deg, hsl(220 85% 62%) 0%, hsl(210 90% 68%) 60%, hsl(38 95% 58%) 100%);
+    --gradient-warm:    linear-gradient(135deg, hsl(38 95% 58%) 0%, hsl(25 92% 62%) 100%);
+    --gradient-hero:    linear-gradient(135deg, hsl(220 85% 62%) 0%, hsl(215 90% 72%) 50%, hsl(38 95% 62%) 100%);
+    --glow-violet: 0 0 40px hsl(220 85% 62% / 0.3);
+    --glow-amber:  0 0 30px hsl(38 95% 58% / 0.35);
+    --shadow-hard:    5px 5px 0px hsl(220 85% 62% / 0.4);
+    --shadow-hard-sm: 3px 3px 0px hsl(220 85% 62% / 0.4);
   }
 }
 
@@ -107,7 +107,7 @@
     --safe-left: env(safe-area-inset-left, 0px);
     --safe-right: env(safe-area-inset-right, 0px);
   }
-  ::selection { background: hsl(250 85% 58% / 0.2); color: hsl(250 85% 38%); }
+  ::selection { background: hsl(220 85% 62% / 0.25); color: hsl(222 68% 30%); }
   /* Hide scrollbar on mobile but keep scrollability */
   @media (max-width: 768px) {
     ::-webkit-scrollbar { display: none; }
@@ -138,13 +138,13 @@
   .gradient-warm { background: var(--gradient-warm); }
 
   .glass {
-    background: rgba(255,255,255,0.65);
+    background: rgba(255,255,255,0.7);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.6);
   }
   .dark .glass {
-    background: rgba(15,15,25,0.7);
+    background: rgba(17, 25, 46, 0.7);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255,255,255,0.08);
@@ -161,25 +161,25 @@
     display: inline-flex; align-items: center;
     padding: 3px 10px; border-radius: 100px;
     font-size: 0.68rem; font-weight: 600;
-    background: hsl(192 68% 36% / 0.1);
-    color: hsl(192 68% 28%);
-    border: 1px solid hsl(192 68% 36% / 0.22);
+    background: hsl(222 68% 30% / 0.1);
+    color: hsl(222 68% 28%);
+    border: 1px solid hsl(222 68% 30% / 0.22);
     backdrop-filter: blur(8px);
   }
   .dark .tag {
-    background: hsl(192 65% 52% / 0.15);
-    color: hsl(192 65% 68%);
-    border-color: hsl(192 65% 52% / 0.28);
+    background: hsl(220 85% 62% / 0.15);
+    color: hsl(220 85% 72%);
+    border-color: hsl(220 85% 62% / 0.28);
   }
   .tag-warm {
     display: inline-flex; align-items: center;
     padding: 3px 10px; border-radius: 100px;
     font-size: 0.7rem; font-weight: 600;
-    background: hsl(32 95% 55% / 0.12);
-    color: hsl(32 95% 35%);
-    border: 1px solid hsl(32 95% 55% / 0.25);
+    background: hsl(38 92% 48% / 0.12);
+    color: hsl(38 92% 35%);
+    border: 1px solid hsl(38 92% 48% / 0.25);
   }
-  .dark .tag-warm { background: hsl(32 90% 60% / 0.15); color: hsl(32 90% 68%); }
+  .dark .tag-warm { background: hsl(38 95% 58% / 0.15); color: hsl(38 95% 70%); }
 
   .tilt-1 { transform: rotate(-1.5deg); }
   .tilt-2 { transform: rotate(1.5deg); }

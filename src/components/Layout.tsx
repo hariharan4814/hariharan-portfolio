@@ -15,10 +15,10 @@ const Layout = ({ children }: LayoutProps) => {
   const navigate = useNavigate();
   const { theme } = useTheme();
 
-  // 3D wave gradient colors matched to theme
+  // 3D wave gradient colors matched to theme (Midnight Navy & Sapphire Blue from shirt)
   const waveColors = theme === "dark"
-    ? { from: "#0f766e", to: "#06b6d4" }
-    : { from: "#0d9488", to: "#14b8a6" };
+    ? { from: "#192544", to: "#3b82f6" }
+    : { from: "#1e3a8a", to: "#60a5fa" };
 
   const dockItems: DockItemData[] = [
     {
@@ -138,8 +138,8 @@ const Layout = ({ children }: LayoutProps) => {
             panelHeight={58}
             gap={8}
             roundness={0.6}
-            accentColor="#14b8a6"
-            badgeColor="#14b8a6"
+            accentColor={theme === "dark" ? "#3b82f6" : "#1e40af"}
+            badgeColor={theme === "dark" ? "#f59e0b" : "#d97706"}
             showIndicators={true}
             showLabels={true}
             bounce={true}

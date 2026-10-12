@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 function SubtleBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-      <div style={{ position:"absolute", width:600, height:600, borderRadius:"50%", background:"radial-gradient(circle, hsl(250 60% 60% / 0.07) 0%, transparent 70%)", top:"-15%", left:"-10%" }} />
-      <div style={{ position:"absolute", width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle, hsl(32 80% 58% / 0.06) 0%, transparent 70%)", bottom:"0%", right:"-5%" }} />
+      <div style={{ position:"absolute", width:600, height:600, borderRadius:"50%", background:"radial-gradient(circle, hsl(220 80% 60% / 0.09) 0%, transparent 70%)", top:"-15%", left:"-10%" }} />
+      <div style={{ position:"absolute", width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle, hsl(38 90% 55% / 0.08) 0%, transparent 70%)", bottom:"0%", right:"-5%" }} />
     </div>
   );
 }
