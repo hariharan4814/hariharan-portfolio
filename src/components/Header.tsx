@@ -142,15 +142,6 @@ const Header = () => {
         </NavLink>
 
         <div className="flex items-center gap-1">
-          <a
-            href="/HARIHARAN_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Download CV"
-            className="text-[10px] font-bold px-2.5 py-1.5 rounded-lg border border-border bg-card/70 hover:border-primary/50 text-foreground transition-all flex items-center gap-1 active:scale-95"
-          >
-            CV
-          </a>
           <button
             onClick={handleThemeToggle}
             aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
@@ -170,57 +161,6 @@ const Header = () => {
           </button>
         </div>
       </motion.div>
-
-      {/* ── Mobile bottom navigation dock (Floating capsule dock) ── */}
-      <div
-        className="md:hidden fixed bottom-0 left-0 right-0 z-50 pointer-events-none px-3"
-        style={{
-          paddingBottom: "max(0.75rem, var(--safe-bottom))",
-          paddingLeft: "max(0.75rem, var(--safe-left))",
-          paddingRight: "max(0.75rem, var(--safe-right))",
-        }}
-      >
-        <nav
-          className="pointer-events-auto mx-auto max-w-md glass-dock rounded-2xl flex items-center justify-around py-1.5 px-1 shadow-2xl"
-          aria-label="Mobile navigation"
-        >
-          {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              onClick={handleNavTap}
-              aria-label={item.name}
-              className={({ isActive }) =>
-                `relative flex flex-col items-center justify-center flex-1 py-1.5 min-h-[48px] rounded-xl transition-all duration-200 select-none active:scale-90 ${
-                  isActive ? "text-primary font-bold" : "text-muted-foreground hover:text-foreground font-medium"
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  {isActive && (
-                    <motion.div
-                      layoutId="mobile-dock-active"
-                      className="absolute inset-0 bg-primary/12 rounded-xl border border-primary/25"
-                      transition={{ type: "spring", stiffness: 450, damping: 32 }}
-                    />
-                  )}
-                  <motion.div
-                    animate={isActive ? { scale: 1.15, y: -1 } : { scale: 1, y: 0 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className="relative z-10 mb-0.5"
-                  >
-                    <item.icon className={`h-[19px] w-[19px] ${isActive ? "stroke-[2.5]" : "stroke-[1.75]"}`} />
-                  </motion.div>
-                  <span className={`relative z-10 text-[9.5px] tracking-tight leading-none ${isActive ? "opacity-100" : "opacity-60"}`}>
-                    {item.name}
-                  </span>
-                </>
-              )}
-            </NavLink>
-          ))}
-        </nav>
-      </div>
     </>
   );
 };
