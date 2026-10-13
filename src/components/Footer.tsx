@@ -10,13 +10,6 @@ const Footer = () => {
     { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/919940099083", color: "hover:bg-[#25D366] hover:text-white hover:border-[#25D366]" },
   ];
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Achievements", href: "/achievements" },
-    { name: "Contact", href: "/contact" },
-  ];
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -54,19 +47,6 @@ const Footer = () => {
             </div>
           </Link>
 
-          {/* Nav links */}
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center" aria-label="Footer navigation">
-            {navLinks.map((l) => (
-              <Link
-                key={l.name}
-                to={l.href}
-                onClick={scrollToTop}
-                className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors cursor-pointer"
-              >
-                {l.name}
-              </Link>
-            ))}
-          </nav>
 
           {/* Social links */}
           <div className="flex gap-3" role="list" aria-label="Social media links">
